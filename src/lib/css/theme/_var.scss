@@ -1,0 +1,48 @@
+@use "default";
+@use "dark";
+@use "light";
+
+html {
+    --bg: #{default.$bg};
+    --text: #{default.$text};
+    --text-secondary: #{default.$text-secondary};
+    --border: #{default.$border};
+    --checkmark: #{default.$checkmark};
+    --likes-text-hover: #{default.$likes-text-hover};
+    --likes-bg-hover: #{default.$likes-bg-hover};
+    --link-text-hover: #{default.$link-text-hover};
+    --link-bg-hover: #{default.$link-bg-hover};
+    --border-radius: 0.5rem;
+}
+
+.dark {
+    --bg: #{dark.$bg};
+    --text: #{dark.$text};
+    --text-secondary: #{dark.$text-secondary};
+    --border: #{dark.$border};
+    --checkmark: #{dark.$checkmark};
+    --likes-bg-hover: #{dark.$likes-bg-hover};
+    --likes-text-hover: #{dark.$likes-text-hover};
+    --link-bg-hover: #{dark.$link-bg-hover};
+    --link-text-hover: #{dark.$link-text-hover};
+    // --likes-text: inherit;
+    // --link-text: inherit;
+    // --link-bg: transparent;
+    // --likes-bg: transparent;
+}
+
+.light {
+    --bg: #{light.$bg};
+    --text: #{light.$text};
+    --text-secondary: #{light.$text-secondary};
+    --border: #{light.$border};
+    --checkmark: #{light.$checkmark};
+    --likes-text-hover: #{light.$likes-text-hover};
+    --likes-bg-hover: #{light.$likes-bg-hover};
+    --link-text-hover: #{light.$link-text-hover};
+    --link-bg-hover: #{light.$link-bg-hover};
+    // --likes-text: inherit;
+    // --likes-bg: transparent;
+    // --link-text: inherit;
+    // --link-bg: transparent;
+}

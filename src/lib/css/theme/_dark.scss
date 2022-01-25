@@ -1,0 +1,19 @@
+@import "./tailwind";
+
+$bg: $gray-800;
+$text: $gray-050;
+$text-secondary: $gray-300;
+$border: $gray-700;
+$checkmark: $gray-050;
+// Likes
+$likes-text-hover: $red-400;
+$likes-bg-hover: rgba($red-400, 0.1);
+// Link
+$link-text-hover: $blue-400;
+$link-bg-hover: rgba($blue-400, 0.1);
+//
+$border-radius: 8px;
+$likes-text: $text-secondary;
+$link-text: $text-secondary;
+$likes-bg: transparent;
+$link-bg: transparent;
