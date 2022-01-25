@@ -124,18 +124,20 @@ export interface BindingValues {
   app_name?: AppName;
   app_price_currency?: AppPriceCurrency;
   creator?: Creator;
+  // Polls
   choice1_label?: Choice1Label;
   choice2_label?: Choice2Label;
-  end_datetime_utc?: EndDatetimeUtc;
-  counts_are_final?: CountsAreFinal;
-  choice2_count?: Choice2Count;
-  choice1_count?: Choice1Count;
+  choice3_label?: Choice3Label;
   choice4_label?: Choice4Label;
-  last_updated_datetime_utc?: LastUpdatedDatetimeUtc;
-  duration_minutes?: DurationMinutes;
+  choice1_count?: Choice1Count;
+  choice2_count?: Choice2Count;
   choice3_count?: Choice3Count;
   choice4_count?: Choice4Count;
-  choice3_label?: Choice3Label;
+  
+  end_datetime_utc?: EndDatetimeUtc;
+  duration_minutes?: DurationMinutes;
+  last_updated_datetime_utc?: LastUpdatedDatetimeUtc;
+  counts_are_final?: CountsAreFinal;
   api?: Api;
 }
 
