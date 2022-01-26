@@ -87,6 +87,13 @@ main {
     padding: 0px;
     white-space: pre-wrap;
     line-height: var(--font-lineheight-2);
+    a {
+        color: var(--link-text-hover);
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 .meta {

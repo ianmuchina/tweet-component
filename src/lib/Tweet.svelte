@@ -1,6 +1,7 @@
 <script lang="ts">
   // Props
   export let tweet: Tweet;
+  import { text } from "svelte/internal";
   // Styles
   import "./css/main.scss";
   import type { Tweet } from "./types";
@@ -27,13 +28,52 @@
       compactDisplay: "short",
     });
   }
+  // hashtags
+  tweet.entities.hashtags.forEach((e) => {
+    tweet.text = tweet.text.replaceAll(
+      `#${e.text}`,
+      `<a href="https://twitter.com/hashtag/${e.text}">#${e.text}</a>`
+    );
+  });
+
+  // user_mentions
+  tweet.entities.user_mentions.forEach((e) => {
+    tweet.text = tweet.text.replaceAll(
+      `@${e.screen_name}`,
+      `<a href=${userUrl(e.id_str)}>@${e.screen_name}</a>`
+    );
+  });
+
+  // symbols
+  tweet.entities.symbols.forEach((e) => {
+    ``;
+    tweet.text = tweet.text.replaceAll(
+      `$${e.text}`,
+      `<a href="https://twitter.com/search?q=%24${e.text}">$${e.text}</a>`
+    );
+  });
+
+  // Urls
+  // FIXME: This is not secure
+  tweet.entities.urls.forEach((e) => {
+    tweet.text = tweet.text.replace(
+      e.url,
+      `<a href="${e.expanded_url}" target="_blank" rel="noopener noreferrer">${e.display_url}</a>`
+    );
+  });
+
+  // Media
+  // Remove Links to photos & Videos
+  if (tweet.entities.media !== undefined) {
+    tweet.entities.media.forEach((e) => {
+      let jsx = `<a style=""  href="${e.expanded_url}" target="_blank" rel="noopener noreferrer">${e.display_url}</a>`;
+      tweet.text = tweet.text.replace(e.url, "");
+    });
+  }
 </script>
 
-<!-- <main>
-
-  {#each tweets as tweet} -->
 <article class="tweet" lang={tweet.lang}>
-  <!-- Text -->
+  <!-- User Info -->
   <section class="userInfo">
     <!-- Profile Pic -->
     <img
@@ -75,15 +115,20 @@
       <span class="screenName">@{tweet.user.screen_name}</span>
     </div>
   </section>
+  <!-- End User Info -->
 
   <!-- FullText -->
+  <!-- TODO: Entities -->
   <p class="fullText">
-    {tweet.text}
+    <!-- {tweet.text} -->
+    <!-- FIXME: NOT SANITISED -->
+    {@html tweet.text}
   </p>
+  <!-- End FullText -->
 
   <!-- Gallery -->
   {#if tweet.photos}
-    {#if tweet.photos.length >= 1}
+    {#if tweet.photos.length > 0}
       <section class="gallery gallery-{tweet.photos.length}">
         {#each tweet.photos as photo}
           <img
@@ -97,13 +142,13 @@
       </section>
     {/if}
   {/if}
-
   <!-- End Gallery -->
-  <!-- Videos & Gifs -->
+
   <!-- svelte-ignore a11y-media-has-caption -->
+  <!-- Videos & Gifs -->
   <section>
     {#if tweet.video}
-      <!-- Gifs -->
+      <!-- Gif -->
       {#if tweet.video.contentType === "gif"}
         <video loop muted autoplay poster={tweet.video.poster}>
           {#each tweet.video.variants as v}
@@ -113,7 +158,7 @@
         </video>
       {/if}
 
-      <!-- Normal Video -->
+      <!-- Video -->
       {#if tweet.video.contentType === "media_entity"}
         <video controls loop poster={tweet.video.poster}>
           {#each tweet.video.variants as v}
@@ -124,12 +169,25 @@
       {/if}
     {/if}
   </section>
-  <!-- End Videos -->
+  <!-- End Videos & Gifs -->
 
-  <!-- Begin Card -->
+  <!-- Polls -->
+  <!-- End Poll -->
 
-  <!-- End Card -->
-  <!-- Metadata -->
+  <!-- Open Graph -->
+  <!-- Small -->
+  <!-- End Small -->
+  <!-- Large -->
+  <!-- End Large -->
+  <!-- End Open Graph -->
+
+  <!-- Quoted -->
+  <!-- End Quoted -->
+
+  <!-- Date -->
+  <!-- End Date -->
+
+  <!-- Metadata: Likes, Link to tweet -->
   <section class="meta">
     <!-- Likes -->
     <a class="likes" href={likeUrl(tweet.id_str)}>
@@ -149,6 +207,7 @@
       {compact(tweet.favorite_count)}
     </a>
 
+    <!-- Link To Tweet -->
     <a
       href={tweetUrl(tweet.id_str)}
       target="_blank"
@@ -172,9 +231,7 @@
           />
         </g>
       </svg>
-      <span>Link to Tweet</span>
+      Link to Tweet
     </a>
   </section>
 </article>
-<!-- {/each} -->
-<!-- </main> -->
