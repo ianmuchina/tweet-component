@@ -1,22 +1,24 @@
 @import "./tailwind";
 
-$bg: $gray-800;
-$text: $gray-050;
-$text-secondary: $gray-300;
-$border: $gray-700;
-$checkmark: $gray-050;
+$bg: black;
+$text: white;
+$text-secondary: $trueGray-300;
+$border: $trueGray-800;
+$checkmark: $trueGray-050;
 // Likes
-$likes-text-hover: $red-400;
-$likes-bg-hover: rgba($red-400, 0.1);
+$likes-text-hover: $red-500;
+$likes-bg-hover: rgba($red-500, 0.1);
 // Link
-$link-text-hover: $indigo-400;
-$link-bg-hover: rgba($indigo-400, 0.1);
-//
+$link-text-hover: var(--accent-500);
+$link-bg-hover: var(--accent-900);
+
 $border-radius: 8px;
 $likes-text: $text-secondary;
 $link-text: $text-secondary;
 $likes-bg: transparent;
 $link-bg: transparent;
 
-$poll-bar: $gray-700;
-$poll-bar-win: rgba($indigo-500, 0.5);
+$poll-bar: $trueGray-900;
+
+$accent-text: var(--accent-400);
+$poll-bar-win: var(--accent-900);

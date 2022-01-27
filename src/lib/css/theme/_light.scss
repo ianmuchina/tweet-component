@@ -7,14 +7,17 @@ $border: $gray-300;
 $checkmark: $lightBlue-500;
 $border-radius: 8px;
 $likes-text-hover: $red-500;
-$likes-bg-hover: rgba($red-500, 0.1);
-$link-text-hover: $indigo-500;
-$link-bg-hover: rgba($indigo-500, 0.1);
+$likes-bg-hover: $red-100;
+
+$link-text-hover: var(--accent-600);
+$link-bg-hover: var(--accent-100);
 
 $likes-text: inherit;
 $likes-bg: transparent;
 $link-text: inherit;
 $link-bg: transparent;
 
-$poll-bar: $gray-300;
-$poll-bar-win: rgba($indigo-500, 0.8);
+$poll-bar: $gray-200;
+
+$accent-text: var(--accent-700);
+$poll-bar-win: var(--accent-100);

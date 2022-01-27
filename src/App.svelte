@@ -4,10 +4,12 @@
   import { tweets } from "./lib/data";
   import Tweet from "./lib/Tweet.svelte";
   import DarkModeBtn from "./lib/DarkModeBtn.svelte";
+  import Accent from "./lib/Accent.svelte";
 </script>
 
 <main>
-  <DarkModeBtn />
+  <Accent />
+  <!-- <DarkModeBtn /> -->
   {#each tweets as tweet}
     <Tweet {tweet} />
   {/each}

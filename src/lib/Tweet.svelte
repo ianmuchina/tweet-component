@@ -169,7 +169,7 @@
 
 <article class="tweet" lang={tweet.lang}>
   <!-- User Info -->
-  <section class="userInfo">
+  <div class="userInfo">
     <!-- Profile Pic -->
     <img
       class="profilePhoto"
@@ -207,9 +207,9 @@
         {/if}
       </a>
       <!-- Screen Name -->
-      <span class="screenName">@{tweet.user.screen_name}</span>
+      <span class="screenName">@<span>{tweet.user.screen_name}</span> </span>
     </div>
-  </section>
+  </div>
   <!-- End User Info -->
 
   <!-- FullText -->
@@ -222,19 +222,23 @@
   <!-- End FullText -->
 
   <!-- Gallery -->
+
   {#if tweet.photos}
     {#if tweet.photos.length > 0}
-      <section class="gallery gallery-{tweet.photos.length}">
+      <div class="gallery gallery-{tweet.photos.length}">
         {#each tweet.photos as photo}
           <img
             style="background-color: rgb({photo.backgroundColor.red},{photo
               .backgroundColor.green},{photo.backgroundColor.blue});"
             loading="lazy"
-            src={photo.url}
+            src="{photo.url}:small"
             alt={photo.accessibilityLabel}
           />
+          <!-- https://web.dev/learn/design/responsive-images/ -->
+          <!-- https://web.dev/learn/design/picture-element/#image-sizes -->
+          <!-- https://stackoverflow.com/q/39108742/13807223 -->
         {/each}
-      </section>
+      </div>
     {/if}
   {/if}
   <!-- End Gallery -->
@@ -271,7 +275,7 @@
   {#if polls.data.length > 0}
     <section class="polls">
       {#each polls.data as p}
-        <section class:win={p.isWinner === true} class=" poll_container">
+        <div class:win={p.isWinner === true} class=" poll_container">
           <!--  -->
           <div class=" progress_container_text">
             <div class="progress_container_text_align_center">
@@ -283,8 +287,9 @@
             class:win_bar={p.isWinner}
             style="width: {p.percent.toFixed(1)}%;"
             class="progress_bar"
+            aria-hidden="true"
           />
-        </section>
+        </div>
       {/each}
       <!-- Total Votes -->
       <div class="text-secondary">
