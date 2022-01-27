@@ -1,9 +1,9 @@
 <script lang="ts">
   // Props
   export let tweet: Tweet;
-  import { text } from "svelte/internal";
   // Styles
   import "./css/main.scss";
+
   import type { Tweet } from "./types";
 
   // Helpers
@@ -66,9 +66,104 @@
   // Remove Links to photos & Videos
   if (tweet.entities.media !== undefined) {
     tweet.entities.media.forEach((e) => {
-      let jsx = `<a style=""  href="${e.expanded_url}" target="_blank" rel="noopener noreferrer">${e.display_url}</a>`;
       tweet.text = tweet.text.replace(e.url, "");
     });
+  }
+  // Polls
+  interface Polls {
+    totalVotes: number;
+    data: Poll[];
+  }
+  interface Poll {
+    label: string;
+    count: number;
+    percent: number;
+    isWinner: boolean;
+  }
+
+  let polls: Polls = {
+    totalVotes: 0,
+    data: [],
+  };
+  //
+
+  // Twitter's API represents poll in a weird and verbose way.
+  if (
+    tweet.card !== undefined &&
+    tweet.card.binding_values !== undefined &&
+    tweet.card.binding_values.counts_are_final !== undefined
+  ) {
+    // 1
+    // Totals
+    polls.totalVotes += parseInt(
+      tweet.card.binding_values.choice1_count.string_value
+    );
+    // Data
+    polls.data.push({
+      label: tweet.card.binding_values.choice1_label.string_value,
+      count: parseInt(tweet.card.binding_values.choice1_count.string_value),
+      percent: 0,
+      isWinner: false,
+    });
+    // 2
+    // Totals
+    polls.totalVotes += parseInt(
+      tweet.card.binding_values.choice2_count.string_value
+    );
+    // Data
+    polls.data.push({
+      label: tweet.card.binding_values.choice2_label.string_value,
+      count: parseInt(tweet.card.binding_values.choice2_count.string_value),
+      percent: 0,
+      isWinner: false,
+    });
+    // 3
+    if (tweet.card.binding_values.choice3_count.string_value !== undefined) {
+      // Totals
+      polls.totalVotes += parseInt(
+        tweet.card.binding_values.choice3_count.string_value
+      );
+      // Data
+      polls.data.push({
+        label: tweet.card.binding_values.choice3_label.string_value,
+        count: parseInt(tweet.card.binding_values.choice3_count.string_value),
+        percent: 0,
+        isWinner: false,
+      });
+    }
+    // 4
+    if (tweet.card.binding_values.choice4_count.string_value !== undefined) {
+      // Totals
+      polls.totalVotes += parseInt(
+        tweet.card.binding_values.choice4_count.string_value
+      );
+      // Data
+      polls.data.push({
+        label: tweet.card.binding_values.choice4_label.string_value,
+        count: parseInt(tweet.card.binding_values.choice4_count.string_value),
+        percent: 0,
+        isWinner: false,
+      });
+    }
+    // calculate Percentages
+    polls.data.forEach((p) => {
+      p.percent = (p.count / polls.totalVotes) * 100;
+      // ((p.count / polls.totalVotes) * 100).toFixed(1)
+    });
+
+    let max = 0;
+    // find max value
+    for (const p of polls.data) {
+      if (p.count > max) {
+        max = p.count;
+      }
+    }
+    // Set Max value
+    for (const p of polls.data) {
+      if (p.count === max) {
+        p.isWinner = true;
+      }
+    }
   }
 </script>
 
@@ -172,6 +267,31 @@
   <!-- End Videos & Gifs -->
 
   <!-- Polls -->
+
+  {#if polls.data.length > 0}
+    <section class="polls">
+      {#each polls.data as p}
+        <section class:win={p.isWinner === true} class=" poll_container">
+          <!--  -->
+          <div class=" progress_container_text">
+            <div class="progress_container_text_align_center">
+              <span>{p.label} </span>
+              <span>{p.percent.toFixed(1)}%</span>
+            </div>
+          </div>
+          <div
+            class:win_bar={p.isWinner}
+            style="width: {p.percent.toFixed(1)}%;"
+            class="progress_bar"
+          />
+        </section>
+      {/each}
+      <!-- Total Votes -->
+      <div class="text-secondary">
+        {polls.totalVotes} votes
+      </div>
+    </section>
+  {/if}
   <!-- End Poll -->
 
   <!-- Open Graph -->

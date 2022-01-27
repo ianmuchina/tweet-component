@@ -8,10 +8,13 @@ $checkmark: $lightBlue-500;
 $border-radius: 8px;
 $likes-text-hover: $red-500;
 $likes-bg-hover: rgba($red-500, 0.1);
-$link-text-hover: $lightBlue-500;
-$link-bg-hover: rgba($lightBlue-500, 0.1);
+$link-text-hover: $indigo-500;
+$link-bg-hover: rgba($indigo-500, 0.1);
 
 $likes-text: inherit;
 $likes-bg: transparent;
 $link-text: inherit;
 $link-bg: transparent;
+
+$poll-bar: $gray-300;
+$poll-bar-win: rgba($indigo-500, 0.8);
