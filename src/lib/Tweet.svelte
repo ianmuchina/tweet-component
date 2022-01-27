@@ -255,7 +255,7 @@
 
       <!-- Video -->
       {#if tweet.video.contentType === "media_entity"}
-        <video controls loop poster={tweet.video.poster}>
+        <video preload="none" controls loop poster={tweet.video.poster}>
           {#each tweet.video.variants as v}
             <source src={v.src} type={v.type} />
           {/each}
