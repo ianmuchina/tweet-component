@@ -8,7 +8,7 @@ export default defineConfig({
     svelte(),
 
     legacy({
-      targets: ['defaults', 'not IE 11']
+      targets: ['> 1%', 'not IE 11']
     })
   ]
 })
