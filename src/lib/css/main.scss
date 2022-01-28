@@ -197,20 +197,55 @@ body {
 }
 
 /* 3 Images */
-.gallery-3 img {
-    object-fit: cover;
-    height: 100%;
-    aspect-ratio: 16 / 9;
+.gallery-3 {
+    max-height: 300px;
+
+    // First Image
+    :nth-child(1) {
+        grid-row: span 2;
+        min-height: 100%;
+    }
+
+    // Rest of the 2 Images
+    img {
+        object-fit: cover;
+        min-height: 150px;
+
+        // Warning: Experimental Feature
+        @supports (aspect-ratio: 16 / 9) {
+            aspect-ratio: 16 / 9;
+        }
+    }
 }
 
-.gallery-3 :nth-child(1) {
-    grid-row: span 2;
-    aspect-ratio: 16 / 19;
-}
 /* 4 Images  */
-.gallery-4 img {
-    /* FIXME: Backport to older browsers */
-    aspect-ratio: 16 /9;
+// Browsers that support aspect-ratio property
+@supports (aspect-ratio: 16 / 9) {
+    .gallery-4 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+
+        img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 16 / 9;
+        }
+    }
+}
+
+// Browsers that do not support aspect ratio but support flexbox.
+.gallery-4 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    // After 2 Images, go to next column
+    max-height: 310px;
+
+    img {
+        max-height: 150px;
+        max-width: 50%;
+    }
 }
 
 // Videos
