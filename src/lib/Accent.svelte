@@ -69,6 +69,11 @@
         top: 0;
         margin: 1rem;
         max-width: max-content;
+        /* background-color: var(--accent-900); */
+        backdrop-filter: blur(10px);
+        background-color: rgba(0, 0, 0, 0.192);
+        border-radius: 8px;
+        z-index: 10;
     }
 
     button {

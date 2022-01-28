@@ -8,6 +8,9 @@ main {
     padding: 8px;
 }
 
+body {
+    background-color: var(--bg);
+}
 .tweet {
     // Set CSS Variables */
     border-radius: var(--size-1);

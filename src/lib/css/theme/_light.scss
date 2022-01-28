@@ -9,7 +9,7 @@ $border-radius: 8px;
 $likes-text-hover: $red-500;
 $likes-bg-hover: $red-100;
 
-$link-text-hover: var(--accent-600);
+$link-text-hover: var(--accent-700);
 $link-bg-hover: var(--accent-100);
 
 $likes-text: inherit;
@@ -19,5 +19,5 @@ $link-bg: transparent;
 
 $poll-bar: $gray-200;
 
-$accent-text: var(--accent-700);
-$poll-bar-win: var(--accent-100);
+$accent-text: var(--accent-500);
+$poll-bar-win: var(--accent-300);
